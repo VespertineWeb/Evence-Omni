@@ -1,9 +1,9 @@
 {
-  "name": "izing",
+  "name": "Leadpy",
   "version": "0.0.1",
   "description": "Bot Multiatendimento, multicanais e multiempresas.",
-  "productName": "IZING",
-  "author": "Durans <lumardyelson@gmail.com>",
+  "productName": "Leadpy",
+  "author": "Guilherme <leadpytecnologia@gmail.com>",
   "private": false,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
