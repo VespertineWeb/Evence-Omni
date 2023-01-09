@@ -25,7 +25,7 @@ const user = {
   },
   mutations: {
     SET_IS_SUPORTE (state, payload) {
-      const domains = ['@izing.io']
+      const domains = ['@sisnetsul.com.br']
       let authorized = false
       domains.forEach(domain => {
         if (payload?.email.toLocaleLowerCase().indexOf(domain.toLocaleLowerCase()) !== -1) {

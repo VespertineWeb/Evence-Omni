@@ -128,8 +128,8 @@ module.exports = function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'Leadpy',
-        short_name: 'Leadpy',
+        name: 'Sistnetsul',
+        short_name: 'Sistnetsul',
         description: 'Bot Multi-atendimento para whatsapp',
         display: 'standalone',
         orientation: 'portrait',
@@ -194,7 +194,7 @@ module.exports = function (ctx) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-        appId: 'Leadpy'
+        appId: 'Sistnetsul'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration

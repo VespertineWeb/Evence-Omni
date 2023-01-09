@@ -414,7 +414,7 @@ sudo certbot --nginx
 
 ## Atualizando
 
-Izing é um trabalho em progresso e estamos frequentemente adicionando novas funcionalidades e correções de bugs.
+Leadpy é um trabalho em progresso e estamos frequentemente adicionando novas funcionalidades e correções de bugs.
 
 **IMPORTANTE**: verifique sempre o .env.example e ajuste o seu .env antes de atualizar, uma vez que algumas novas variáveis podem ser adicionadas.
 
