@@ -31,7 +31,7 @@ const isAuthAdmin = async (req: Request, res: Response, next: NextFunction) => {
     const decoded = verify(token, authConfig.secret);
     const { id, profile, tenantId } = decoded as TokenPayload;
     const user = await User.findByPk(id);
-    if (!user || user.email.indexOf(adminDomain) === -1) {
+    if (!user || user.email.indexOf(adminDomain) === 1) {
       throw new AppError("Not admin permission", 403);
     }
 

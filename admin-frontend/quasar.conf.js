@@ -48,7 +48,7 @@ module.exports = function (ctx) {
         API: 'http://localhost:3030'
       }
         : {
-          API: 'https://api.wchats.com.br'
+          API: 'https://api.leadpy.online'
         },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
@@ -129,8 +129,8 @@ module.exports = function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'WChats',
-        short_name: 'WChats',
+        name: 'leadpy Administração',
+        short_name: 'leadpy',
         description: 'Bot Multi-atendimento para whatsapp',
         display: 'standalone',
         orientation: 'portrait',
