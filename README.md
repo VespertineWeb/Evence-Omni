@@ -1,7 +1,7 @@
 [![Doação](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=TZ26S3D3Q4PE6)
 [![Discord Chat](https://img.shields.io/discord/1046597742878789663.svg?logo=discord)](https://discord.gg/vThFjJWX)
 
-# Izing
+# Leadpy Tecnologia
 
 Um sistema para gestão de atendimento multicanais centralizado.
 
@@ -41,7 +41,7 @@ ___
 
 ## Docker compose Localhost
 
-Execute comando na pasta raiz do projeto (izing.io)
+Execute comando na pasta raiz do projeto (Leadpy)
 
 ```
 docker compose -f "docker-compose.yml" up -d --build
@@ -50,13 +50,13 @@ docker compose -f "docker-compose.yml" up -d --build
 Após os containers estarem rodando, faça a carga de dados iniciais (apenas na primeira vez)
 
 ```
-docker compose exec -it izing-backend  bash -c 'npx sequelize db:seed:all'    
+docker compose exec -it leadpy-backend  bash -c 'npx sequelize db:seed:all'    
 ```
 
 > Se tudo correu bem, acesse o sistema e faça login no link: [http://localhost:8080/#/login](http://localhost:8080/#/login).
 
 ```
-usuário: admin@izing.io
+usuário: admin@leadpy.io
 senha: 123456
 ```
 
@@ -414,7 +414,7 @@ sudo certbot --nginx
 
 ## Atualizando
 
-Izing é um trabalho em progresso e estamos frequentemente adicionando novas funcionalidades e correções de bugs.
+Leadpy é um trabalho em progresso e estamos frequentemente adicionando novas funcionalidades e correções de bugs.
 
 **IMPORTANTE**: verifique sempre o .env.example e ajuste o seu .env antes de atualizar, uma vez que algumas novas variáveis podem ser adicionadas.
 

@@ -1,19 +1,19 @@
 {
-  "name": "izing.io",
+  "name": "Leadpy",
   "version": "1.9.0",
   "description": "Bot Multiatendimento, multicanais e multiempresas.",
   "main": "index.js",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "git@github.com:ldurans/izing.io.git"
+    "url": "private"
   },
   "scripts": {
     "release": "semantic-release --no-ci",
     "husk": "husky install"
   },
-  "author": "lumardyelson@gmail.com",
-  "license": "@izing.io",
+  "author": "leadpytecnologia@gmail.com",
+  "license": "@leadpy",
   "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^16.0.1",
