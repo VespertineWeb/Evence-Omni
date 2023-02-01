@@ -39,10 +39,10 @@
               label="Interações" />
             <q-tab name="condicoes"
               label="Condições" />
-            <!-- <q-tab
+            <q-tab
               name="acoes"
               label="Ações"
-            /> -->
+            />
           </q-tabs>
           <q-tab-panels v-model="tabNodeForm"
             animated
@@ -62,7 +62,7 @@
                       Enviar Mensagem
                     </q-tooltip>
                   </q-btn>
-                  <!-- <q-btn
+                  <q-btn
                     flat
                     icon="mdi-message-settings-outline"
                     class="bg-padrao btn-rounded q-mx-xs"
@@ -72,7 +72,7 @@
                     <q-tooltip content-class="text-bold">
                       Enviar Mensagem (Botões | Listas)
                     </q-tooltip>
-                  </q-btn> -->
+                  </q-btn>
                   <q-btn @click="addMediaField"
                     flat
                     icon="mdi-file-document-outline"
@@ -299,7 +299,7 @@
               @click="saveLine"
               label="Salvar" />
           </div>
-          <!--            <div class="el-node-form-tag"></div>-->
+          <div class="el-node-form-tag"></div>
         </div>
       </q-card-section>
 
@@ -409,7 +409,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="row q-mt-md">
+            <div class="row q-mt-md">
               <div class="col">
                 <label
                   class="text-subtitle1 text-bold q-mb-sm "
@@ -427,7 +427,7 @@
                   color="primary"
                 />
               </div>
-            </div> -->
+            </div>
           </q-card-section>
         </q-card>
 
@@ -639,16 +639,15 @@
 
 <script>
 import { uid } from 'quasar'
-// import { cloneDeep } from 'lodash'
 import MessageField from './messageField'
-// import MessageOptionsField from './messageOptionsField.vue'
+import MessageOptionsField from './messageOptionsField.vue'
 import MediaField from './mediaField.vue'
 import { VEmojiPicker } from 'v-emoji-picker'
 export default {
   components: {
     MessageField,
     VEmojiPicker,
-    // MessageOptionsField,
+    MessageOptionsField,
     MediaField
   },
   props: {
@@ -710,16 +709,16 @@ export default {
         id: this.gerarUID()
       })
     },
-    // addMessageOptions () {
-    //   this.node.interactions.push({
-    //     type: 'MessageOptionsField',
-    //     data: {
-    //       message: '',
-    //       values: []
-    //     },
-    //     id: this.gerarUID()
-    //   })
-    // },
+    addMessageOptions () {
+      this.node.interactions.push({
+        type: 'MessageOptionsField',
+        data: {
+          message: '',
+          values: []
+        },
+        id: this.gerarUID()
+      })
+    },
     addMediaField () {
       this.node.interactions.push({
         type: 'MediaField',

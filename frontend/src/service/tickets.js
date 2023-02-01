@@ -24,13 +24,14 @@ export function ConsultarLogsTicket (params) {
   })
 }
 
-export function AtualizarStatusTicket (ticketId, status, userId) {
+export function AtualizarStatusTicket (ticketId, status, userId, queueId) {
   return request({
     url: `/tickets/${ticketId}`,
     method: 'put',
     data: {
       status,
-      userId
+      userId,
+      queueId
     }
   })
 }

@@ -2,8 +2,8 @@
   <div>
     <q-table
       class="my-sticky-dynamic q-ma-lg"
-      title="Usuarios"
-      :data="usuarios"
+      title="Empresas"
+      :data="empresas"
       :columns="columns"
       :loading="loading"
       row-key="id"
@@ -24,7 +24,7 @@
           v-model="filter"
           clearable
           placeholder="Localize"
-          @input="filtrarUsuario"
+          @input="filtrarEmpresa"
         >
           <template v-slot:prepend>
             <q-icon name="search" />
@@ -51,12 +51,12 @@
         </q-td>
       </template>
       <template v-slot:pagination="{ pagination }">
-        {{ usuarios.length }}/{{ pagination.rowsNumber }}
+        {{ empresas.length }}/{{ pagination.rowsNumber }}
       </template>
     </q-table>
     <ModalUsuario
       :modalUsuario.sync="modalUsuario"
-      @modalUsuario:usuario-editado="UPDATE_USUARIO"
+      @modalUsuario:usuario-editado="UPDATE_EMPRESA"
       @modalUsuario:usuario-criado="usuarioCriado"
       :usuarioEdicao.sync="usuarioSelecionado"
     />
@@ -65,19 +65,19 @@
 
 <script>
 // const userId = +localStorage.getItem('userId')
-import { AdminListarUsuarios } from 'src/service/user'
+import { AdminListarEmpresas } from '../../service/empresas'
 import ModalUsuario from './ModalUsuario'
 export default {
   name: 'IndexUsuarios',
   components: { ModalUsuario },
   data () {
     return {
-      usuarios: [],
+      empresas: [],
       usuarioSelecionado: {},
       filas: [],
-      optionsProfile: [
-        { value: 'user', label: 'Usuário' },
-        { value: 'admin', label: 'Administrador' }
+      optionsStatus: [
+        { value: 'active', label: 'Ativo' },
+        { value: 'desactive', label: 'Desativado' }
       ],
       modalUsuario: false,
       filter: null,
@@ -93,71 +93,61 @@ export default {
       },
       loading: false,
       columns: [
-        { name: 'name', label: 'Nome', field: 'name', align: 'left' },
-        { name: 'email', label: 'E-mail', field: 'email', align: 'left' },
         { name: 'tenant', label: 'Empresa', field: 'tenant', align: 'left', format: v => `${v.id} - ${v.name}` },
-        {
-          name: 'queues',
-          label: 'Filas',
-          field: 'queues',
-          align: 'left',
-          format: (v) => !v ? '' : v.map(f => f.queue).join(', '),
-          classes: 'ellipsis',
-          style: 'max-width: 400px;'
-        },
-        { name: 'profile', label: 'Perfil', field: 'profile', align: 'left', format: (v) => this.optionsProfile.find(o => o.value == v).label },
+        { name: 'status', label: 'Status', field: 'status', align: 'left', format: (v) => this.optionsStatus.find(o => o.value == v).label },
         { name: 'acoes', label: 'Ações', field: 'acoes', align: 'center' }
       ]
     }
   },
   methods: {
-    LOAD_USUARIOS (users) {
-      const newUsers = []
-      users.forEach(user => {
-        const userIndex = this.usuarios.findIndex(c => c.id === user.id)
-        if (userIndex !== -1) {
-          this.usuarios[userIndex] = user
+    LOAD_EMPRESA (Tenants) {
+      const newTenant = []
+      Tenants.forEach(tenant => {
+        const tenantIndex = this.empresas.findIndex(c => c.id === tenant.id)
+        if (tenantIndex !== -1) {
+          this.empresas[tenantIndex] = tenant
         } else {
-          newUsers.push(user)
+          newTenant.push(tenant)
         }
       })
-      const usersObj = [...this.usuarios, ...newUsers]
-      this.usuarios = usersObj
+      const tenantObj = [...this.empresas, ...newTenant]
+      this.empresas = tenantObj
     },
-    UPDATE_USUARIO (usuario) {
-      let newUsuarios = [...this.usuarios]
-      const usuarioIndex = newUsuarios.findIndex(c => c.id === usuario.id)
-      if (usuarioIndex !== -1) {
-        newUsuarios[usuarioIndex] = usuario
+    UPDATE_EMPRESA (tenant) {
+      let newTenant = [...this.empresas]
+      const tenantIndex = newTenant.findIndex(c => c.id === tenant.id)
+      if (tenantIndex !== -1) {
+        newTenant[tenantIndex] = tenant
       } else {
-        newUsuarios = [usuario, ...newUsuarios]
+        newTenant = [tenant, ...newTenant]
       }
-      this.usuarios = [...newUsuarios]
+      this.empresas = [...newTenant]
     },
-    DELETE_USUARIO (userId) {
-      const newObj = [...this.usuarios.filter(u => u.id !== userId)]
-      this.usuarios = [...newObj]
+    DELETE_EMPRESA (tenantId) {
+      const newObj = [...this.empresas.filter(u => u.id !== tenantId)]
+      this.empresas = [...newObj]
     },
-    async listarUsuarios () {
+    async listarEmpresas () {
       this.loading = true
-      const { data } = await AdminListarUsuarios(this.params)
+      const { data } = await AdminListarEmpresas(this.params)
+      console.log(data)
       this.params.hasMore = data.hasMore
-      this.LOAD_USUARIOS(data.users)
+      this.LOAD_EMPRESA(data.Tenants)
       this.loading = false
-      this.pagination.lastIndex = this.usuarios.length - 1
+      this.pagination.lastIndex = this.empresas.length - 1
       this.pagination.rowsNumber = data.count
     },
-    filtrarUsuario (data) {
-      this.usuarios = []
+    filtrarEmpresa (data) {
+      this.empresas = []
       this.params.pageNumber = 1
       this.params.searchParam = data
       this.loading = true
-      this.listarUsuarios()
+      this.listarEmpresas()
     },
     onScroll ({ to, ref, ...all }) {
       if (this.loading !== true && this.params.hasMore === true && to === this.pagination.lastIndex) {
         this.params.pageNumber++
-        this.listarUsuarios()
+        this.listarEmpresas()
       }
     },
     usuarioCriado (usuario) {
@@ -171,7 +161,7 @@ export default {
     }
   },
   async mounted () {
-    await this.listarUsuarios()
+    await this.listarEmpresas()
   }
 }
 </script>

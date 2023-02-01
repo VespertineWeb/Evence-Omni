@@ -117,7 +117,7 @@
               </q-tooltip>
             </q-btn>
             <q-btn
-              @click="listarUsuarios"
+              @click="listarUsuarios(), listarFilas()"
               flat
               color="primary"
               class="bg-padrao btn-rounded"
@@ -177,7 +177,7 @@
               </q-fab-action>
 
               <q-fab-action
-                @click="listarUsuarios"
+                @click="listarUsuarios(), listarFilas()"
                 flat
                 color="primary"
                 class="bg-padrao q-pa-xs "
@@ -283,6 +283,22 @@
             label="Usuário destino"
           />
         </q-card-section>
+        <q-card-section>
+          <div class="text-h6">Selecione o Setor:</div>
+        </q-card-section>
+        <q-card-section>
+          <q-select
+            square
+            outlined
+            v-model="filasSelecionadas"
+            :options="filas"
+            emit-value
+            map-options
+            option-value="id"
+            option-label="queue"
+            label="Fila de destino"
+          />
+        </q-card-section>
         <q-card-actions align="right">
           <q-btn
             flat
@@ -305,16 +321,20 @@
 
 <script>
 const userId = +localStorage.getItem('userId')
+const queueId = +localStorage.getItem('userId')
 import { mapGetters } from 'vuex'
 import { ListarUsuarios } from 'src/service/user'
 import { AtualizarTicket } from 'src/service/tickets'
+import { ListarFilas } from 'src/service/filas'
 export default {
   name: 'InfoCabecalhoMensagens',
   data () {
     return {
       modalTransferirTicket: false,
       usuarioSelecionado: null,
-      usuarios: []
+      usuarios: [],
+      filasSelecionadas: null,
+      filas: []
     }
   },
   computed: {
@@ -347,12 +367,38 @@ export default {
         this.$notificarErro('Problema ao carregar usuários', error)
       }
     },
+    async listarFilas () {
+      try {
+        const { data } = await ListarFilas()
+        this.filas = data
+        this.modalTransferirTicket = true
+        console.log(data)
+      } catch (error) {
+        console.error(error)
+        this.$notificarErro('Problema ao carregar Filas', error)
+      }
+    },
     async confirmarTransferenciaTicket () {
-      if (!this.usuarioSelecionado) return
-      if (this.ticketFocado.userId === this.usuarioSelecionado) {
+      if (!this.usuarioSelecionado && !this.filasSelecionadas) return
+      if (!!this.ticketFocado.userId && this.ticketFocado.userId === this.usuarioSelecionado) {
         this.$q.notify({
           type: 'info',
           message: 'Ticket já pertece ao usuário selecionado.',
+          progress: true,
+          actions: [{
+            icon: 'close',
+            round: true,
+            color: 'white'
+          }]
+        })
+        return
+      }
+      console.log(this.ticketFocado)
+      console.log(this.filasSelecionadas)
+      if (this.ticketFocado.queueId === this.filasSelecionadas) {
+        this.$q.notify({
+          type: 'info',
+          message: 'Ticket já pertece a fila selecionada.',
           progress: true,
           actions: [{
             icon: 'close',
@@ -375,9 +421,23 @@ export default {
         })
         return
       }
+      if (this.ticketFocado.queueId === queueId && queueId === this.filasSelecionadas) {
+        this.$q.notify({
+          type: 'info',
+          message: 'Ticket já pertece ao seu usuário',
+          progress: true,
+          actions: [{
+            icon: 'close',
+            round: true,
+            color: 'white'
+          }]
+        })
+        return
+      }
       await AtualizarTicket(this.ticketFocado.id, {
         userId: this.usuarioSelecionado,
-        status: 'open',
+        queueId: this.filasSelecionadas,
+        status: 'pending',
         isTransference: 1
       })
       this.$q.notify({

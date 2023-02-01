@@ -218,14 +218,26 @@ const objMenu = [
   {
     title: 'Dashboard',
     caption: '',
-    icon: 'mdi-home',
-    routeName: 'home-dashboard'
+    icon: 'mdi-monitor-dashboard',
+    routeName: 'Dashboard'
   },
   {
-    title: 'Atendimentos',
+    title: 'Suporte',
     caption: 'Lista de atendimentos',
-    icon: 'mdi-forum-outline',
+    icon: 'mdi-comment-account',
     routeName: 'atendimento'
+  },
+  {
+    title: 'Empresas',
+    caption: 'Gerenciar empresas',
+    icon: 'mdi-domain',
+    routeName: 'empresa'
+  },
+  {
+    title: 'Revendas',
+    caption: 'Revendas',
+    icon: 'mdi-handshake',
+    routeName: 'usuarios'
   },
   {
     title: 'Canais',
@@ -237,6 +249,18 @@ const objMenu = [
     title: 'Usuarios',
     caption: 'Admin de usuários',
     icon: 'mdi-account-group',
+    routeName: 'usuarios'
+  },
+  {
+    title: 'Planos',
+    caption: 'Planos',
+    icon: 'mdi-cash-plus',
+    routeName: 'usuarios'
+  },
+  {
+    title: 'Financeiro',
+    caption: 'Financeiro',
+    icon: 'mdi-finance',
     routeName: 'usuarios'
   },
   {

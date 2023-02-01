@@ -33,7 +33,7 @@ export default {
       const contatoName = this.ticketFocado.contact.name || ''
       const ticketId = this.ticketFocado.id
       const title = {
-        open: 'Atenidmento será iniciado, ok?',
+        open: 'Atendimento será iniciado, ok?',
         pending: 'Retornar à fila?',
         closed: 'Encerrar o atendimento?'
       }

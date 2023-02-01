@@ -45,10 +45,10 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       env: ctx.dev ? {
-        API: 'http://localhost:3030'
+        API: 'http://localhost:8085'
       }
         : {
-          API: 'https://api.leadpy.online'
+          API: 'http://localhost:8085'
         },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 

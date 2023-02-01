@@ -128,13 +128,8 @@ module.exports = function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-<<<<<<< HEAD
-        name: 'BTCHAT',
-        short_name: 'BTCHAT',
-=======
-        name: 'Sistnetsul',
-        short_name: 'Sistnetsul',
->>>>>>> 2ed8efb8d5ed6bbdb9526c11ee2075c9766db326
+        name: 'IZING',
+        short_name: 'IZING',
         description: 'Bot Multi-atendimento para whatsapp',
         display: 'standalone',
         orientation: 'portrait',
@@ -199,11 +194,7 @@ module.exports = function (ctx) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-<<<<<<< HEAD
-        appId: 'BTCHAT'
-=======
-        appId: 'Sistnetsul'
->>>>>>> 2ed8efb8d5ed6bbdb9526c11ee2075c9766db326
+        appId: 'IZING'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
