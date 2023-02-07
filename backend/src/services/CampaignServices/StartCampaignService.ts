@@ -52,8 +52,8 @@ const mountMessageData = (
   const messageRandom = randomInteger(1, 3);
   let bodyMessage = "";
   if (messageRandom === 1) bodyMessage = campaign.message1;
-  if (messageRandom === 2) bodyMessage = campaign.message2;
-  if (messageRandom === 3) bodyMessage = campaign.message3;
+  // if (messageRandom === 2) bodyMessage = campaign.message2;
+  // if (messageRandom === 3) bodyMessage = campaign.message3;
 
   return {
     whatsappId: campaign.sessionId,

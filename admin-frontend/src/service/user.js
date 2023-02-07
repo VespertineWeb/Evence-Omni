@@ -8,6 +8,22 @@ export function AdminListarUsuarios (params) {
   })
 }
 
+export function CriarTenant (data) {
+  return request({
+    url: '/admin/tenants/',
+    method: 'post',
+    data
+  })
+}
+
+export function CriarUsuario (params) {
+  return request({
+    url: '/admin/users/',
+    method: 'post',
+    params
+  })
+}
+
 export function AdminUpdateUsuarios (userId, data) {
   return request({
     url: `/admin/users/${userId}`,

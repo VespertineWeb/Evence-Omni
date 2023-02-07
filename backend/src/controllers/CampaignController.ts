@@ -39,8 +39,8 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     name: Yup.string().required(),
     start: Yup.string().required(),
     message1: Yup.string().required(),
-    message2: Yup.string().required(),
-    message3: Yup.string().required(),
+    message2: Yup.string(),
+    message3: Yup.string(),
     userId: Yup.string().required(),
     sessionId: Yup.string().required(),
     tenantId: Yup.number().required()

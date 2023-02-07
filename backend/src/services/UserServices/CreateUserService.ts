@@ -9,7 +9,8 @@ interface Request {
   name: string;
   tenantId: string | number;
   profile?: string;
-}
+  configs?: {};
+} 
 
 interface Response {
   email: string;
@@ -23,7 +24,8 @@ const CreateUserService = async ({
   password,
   name,
   tenantId,
-  profile = "admin"
+  profile = "admin",
+  configs
 }: Request): Promise<Response> => {
   const schema = Yup.object().shape({
     name: Yup.string().required().min(2),
@@ -55,7 +57,8 @@ const CreateUserService = async ({
     password,
     name,
     profile,
-    tenantId
+    tenantId,
+    configs
   });
 
   const serializedUser = {

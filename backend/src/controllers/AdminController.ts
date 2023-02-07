@@ -8,8 +8,12 @@ import AdminListUsersService from "../services/AdminServices/AdminListUsersServi
 import AdminListChannelsService from "../services/AdminServices/AdminListChannelsService";
 import AdminUpdateUserService from "../services/AdminServices/AdminUpdateUserService";
 import UpdateSettingService from "../services/SettingServices/UpdateSettingService";
+import CheckSettingsHelper from "../helpers/CheckSettings";
 import AppError from "../errors/AppError";
 import CreateWhatsAppService from "../services/WhatsappService/CreateWhatsAppService";
+import { CreateTenantService } from "../services/AdminServices/AdminCreateTenantService";
+import CreateUserService from "../services/UserServices/CreateUserService";
+
 
 type IndexQuery = {
   searchParam: string;
@@ -71,6 +75,32 @@ export const indexTenants = async (
 ): Promise<Response> => {
   const tenants = await AdminListTenantsService();
   return res.status(200).json(tenants);
+};
+
+export const store = async (req: Request, res: Response): Promise<Response> => {
+  const { tenantName, status, email, password, profile, name,cnpj } = req.body;
+  const { tenantId } = req.params;
+  console.log(req.body)
+  const tenant = await CreateTenantService({
+    name: tenantName,
+    status,
+    cnpj
+  });
+  const user = await CreateUserService({
+      email: email,
+      password: password,
+      name: name,
+      tenantId: tenant.id,
+      profile: profile,
+      configs: {"filtrosAtendimento":{"searchParam":"","pageNumber":1,"status":["open","pending"],"showAll":true,"count":null,"queuesIds":[],"withUnreadMessages":false,"isNotAssignedUser":false,"includeNotQueueDefined":true},"isDark":false}
+  });
+  // const io = getIO();
+  // io.emit(`${tenantId}:tenant`, {
+  //   action: "create",
+  //   tenant
+  // });  
+
+  return res.status(200).json({ tenant, user });
 };
 
 export const indexChatFlow = async (

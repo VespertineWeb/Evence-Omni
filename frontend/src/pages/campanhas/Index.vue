@@ -56,8 +56,18 @@
           <q-btn
             flat
             round
-            icon="mdi-account-details-outline"
+            icon="mdi-table-large"
             @click="contatosCampanha(props.row)"
+          >
+            <q-tooltip>
+              Adcionar CSV
+            </q-tooltip>
+          </q-btn>
+          <q-btn
+            flat
+            round
+            icon="mdi-account-details-outline"
+            @click="contatosCsv(props.row)"
           >
             <q-tooltip>
               Lista de Contatos da Campanha
@@ -231,6 +241,15 @@ export default {
     contatosCampanha (campanha) {
       this.$router.push({
         name: 'contatos-campanha',
+        params: {
+          campanhaId: campanha.id,
+          campanha
+        }
+      })
+    },
+    contatosCsv (campanha) {
+      this.$router.push({
+        name: 'contatos-csv',
         params: {
           campanhaId: campanha.id,
           campanha

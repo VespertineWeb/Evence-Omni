@@ -8,6 +8,32 @@
     <q-card style="width: 600px">
       <q-card-section>
         <div class="text-h6">Cadastrar Empresa</div>
+        <q-card-section class="q-col-gutter-sm">
+        <div class="row q-col-gutter-sm">
+          <div class="col-7">
+            <c-input
+              outlined
+              v-model.trim="tenant.name"
+              :validator="$v.tenant.name"
+              @blur="$v.tenant.name.$touch"
+              label="Nome"
+            />
+        </div>
+        <div class="col-5">
+            <c-input
+              outlined
+              v-model.trim="tenant.cnpj"
+              :validator="$v.tenant.cnpj"
+              @blur="$v.tenant.cnpj.$touch"
+              label="CNPJ"
+            />
+          </div>
+        </div>
+      </q-card-section>
+      </q-card-section>
+      <v-divider></v-divider>
+      <q-card-section>
+        <div class="text-h6">Cadastrar Usuario de acesso</div>
       </q-card-section>
       <q-card-section class="q-col-gutter-sm">
         <div class="row q-col-gutter-sm">
@@ -85,7 +111,9 @@
 
 <script>
 import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
-import { AdminUpdateUsuarios } from 'src/service/user'
+import { CriarUsuario, AdminUpdateUsuarios } from 'src/service/user'
+import { CriarTenant } from 'src/service/empresas'
+
 export default {
   name: 'ModalUsuario',
   props: {
@@ -97,120 +125,99 @@ export default {
       type: Boolean,
       default: false
     },
-    usuarioEdicao: {
+    usuario: {
       type: Object,
-      default: () => { return { id: null } }
+      default: () => {
+        return {
+          name: '',
+          email: '',
+          password: '',
+          profile: ''
+        }
+      }
+    },
+    tenant: {
+      type: Object,
+      default: () => {
+        return {
+          name: '',
+          cnpj: '',
+          status: 'active'
+        }
+      }
     }
   },
   data () {
     return {
-      isPwd: false,
-      status: [
-        { value: 'active', label: 'Ativo' },
-        { value: 'desactive', label: 'Desativado' }
-      ],
-      usuario: {
-        name: '',
-        email: '',
-        password: '',
-        profile: 'user'
-      }
+      isPwd: true,
+      optionsProfile: [
+        { value: 'admin', label: 'Administrador' },
+        { value: 'user', label: 'Usuario' }
+      ]
     }
   },
-  validations () {
-    let usuario = {
-      name: { required, minLength: minLength(3), maxLength: maxLength(50) },
-      email: { required, email },
-      profile: { required },
-      password: {}
-    }
-    if (!this.usuario.id) {
-      usuario = {
-        ...usuario,
-        password: { required, minLength: minLength(6), maxLength: maxLength(50) }
+  validations: {
+    tenant: {
+      name: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(50)
+      },
+      cnpj: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(50)
+      }
+    },
+    usuario: {
+      name: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(50)
+      },
+      email: {
+        required,
+        email
+      },
+      password: {
+        required,
+        minLength: minLength(6),
+        maxLength: maxLength(50)
       }
     }
-    return { usuario }
   },
   methods: {
-    abrirModal () {
-      if (this.usuarioEdicao.id) {
-        this.usuario = { ...this.usuarioEdicao }
+    async handleUsuario () {
+      if (this.$v.$invalid) {
+        this.$v.$touch()
+        return
       }
-      if (this.usuarioEdicao.userId) {
-        this.usuario = {
-          ...this.usuarioEdicao,
-          id: this.usuarioEdicao.userId,
-          name: this.usuarioEdicao.username,
-          profile: this.usuarioEdicao.profile
-        }
+      const { name, email, password, profile } = this.usuario
+      const { name: tenantName, cnpj } = this.tenant
+      const data = {
+        name,
+        email,
+        password,
+        profile,
+        tenantName,
+        cnpj
       }
+      if (this.isProfile) {
+        await AdminUpdateUsuarios(data)
+      } else {
+        CriarUsuario && CriarTenant(data)
+      }
+      this.fecharModal()
     },
     fecharModal () {
-      if (!this.isProfile) {
-        this.$emit('update:usuarioEdicao', {})
-      }
-      this.$emit('update:modalUsuario', false)
-      this.usuario = {
-        name: '',
-        email: '',
-        password: '',
-        profile: 'user'
-      }
-      this.isPwd = false
-      this.$v.usuario.$reset()
+      this.$emit('fecharModal')
     },
-    async handleUsuario () {
-      this.$v.usuario.$touch()
-      if (this.$v.usuario.$error) {
-        return this.$q.notify({
-          type: 'warning',
-          progress: true,
-          position: 'top',
-          message: 'Ops! Verifique os erros...',
-          actions: [{
-            icon: 'close',
-            round: true,
-            color: 'white'
-          }]
-        })
-      }
-
-      try {
-        if (this.usuario.id) {
-          const {
-            email, id, name, tenantId, password
-          } = this.usuario
-
-          const params = { email, id, name, tenantId, password }
-
-          if (this.$store.state.user.isAdmin) {
-            params.profile = this.usuario.profile
-          }
-
-          const { data } = await AdminUpdateUsuarios(this.usuario.id, params)
-          this.$emit('modalUsuario:usuario-editado', data)
-          this.$q.notify({
-            type: 'info',
-            progress: true,
-            position: 'top',
-            textColor: 'black',
-            message: 'Usuário editado!',
-            actions: [{
-              icon: 'close',
-              round: true,
-              color: 'white'
-            }]
-          })
-        }
-        this.$emit('update:modalUsuario', false)
-      } catch (error) {
-        console.error(error)
-      }
+    abrirModal () {
+      this.$emit('abrirModal')
     }
   }
 }
-</script>
 
+</script>
 <style lang="scss" scoped>
 </style>

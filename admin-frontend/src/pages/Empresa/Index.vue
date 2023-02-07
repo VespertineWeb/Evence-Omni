@@ -68,101 +68,87 @@
 import { AdminListarEmpresas } from '../../service/empresas'
 import ModalUsuario from './ModalUsuario'
 export default {
-  name: 'IndexUsuarios',
-  components: { ModalUsuario },
+  name: 'Empresa',
+  components: {
+    ModalUsuario
+  },
   data () {
     return {
       empresas: [],
-      usuarioSelecionado: {},
-      filas: [],
-      optionsStatus: [
-        { value: 'active', label: 'Ativo' },
-        { value: 'desactive', label: 'Desativado' }
-      ],
-      modalUsuario: false,
-      filter: null,
-      pagination: {
-        rowsPerPage: 40,
-        rowsNumber: 0,
-        lastIndex: 0
-      },
-      params: {
-        pageNumber: 1,
-        searchParam: null,
-        hasMore: true
-      },
       loading: false,
-      columns: [
-        { name: 'tenant', label: 'Empresa', field: 'tenant', align: 'left', format: v => `${v.id} - ${v.name}` },
-        { name: 'status', label: 'Status', field: 'status', align: 'left', format: (v) => this.optionsStatus.find(o => o.value == v).label },
-        { name: 'acoes', label: 'Ações', field: 'acoes', align: 'center' }
+      pagination: {
+        page: 1,
+        rowsPerPage: 10,
+        rowsNumber: 0
+      },
+      filter: '',
+      modalUsuario: false,
+      usuarioSelecionado: {}
+    }
+  },
+  computed: {
+    columns () {
+      return [
+        {
+          name: 'name',
+          label: 'Razão Social',
+          field: 'name',
+          align: 'left',
+          sortable: true
+        },
+        {
+          name: 'status',
+          label: 'Status',
+          field: 'status',
+          align: 'left',
+          sortable: true
+        },
+        {
+          name: 'cnpj',
+          label: 'CNPJ',
+          field: 'cnpj',
+          align: 'left',
+          sortable: true
+        },
+        {
+          name: 'acoes',
+          label: 'Ações',
+          field: 'acoes',
+          align: 'center',
+          sortable: true
+        }
       ]
     }
   },
   methods: {
-    LOAD_EMPRESA (Tenants) {
-      const newTenant = []
-      Tenants.forEach(tenant => {
-        const tenantIndex = this.empresas.findIndex(c => c.id === tenant.id)
-        if (tenantIndex !== -1) {
-          this.empresas[tenantIndex] = tenant
-        } else {
-          newTenant.push(tenant)
-        }
-      })
-      const tenantObj = [...this.empresas, ...newTenant]
-      this.empresas = tenantObj
-    },
-    UPDATE_EMPRESA (tenant) {
-      let newTenant = [...this.empresas]
-      const tenantIndex = newTenant.findIndex(c => c.id === tenant.id)
-      if (tenantIndex !== -1) {
-        newTenant[tenantIndex] = tenant
-      } else {
-        newTenant = [tenant, ...newTenant]
-      }
-      this.empresas = [...newTenant]
-    },
-    DELETE_EMPRESA (tenantId) {
-      const newObj = [...this.empresas.filter(u => u.id !== tenantId)]
-      this.empresas = [...newObj]
-    },
     async listarEmpresas () {
       this.loading = true
-      const { data } = await AdminListarEmpresas(this.params)
-      console.log(data)
-      this.params.hasMore = data.hasMore
-      this.LOAD_EMPRESA(data.Tenants)
+      const { data } = await AdminListarEmpresas()
+      this.empresas = data
       this.loading = false
-      this.pagination.lastIndex = this.empresas.length - 1
-      this.pagination.rowsNumber = data.count
+      console.log(data)
     },
-    filtrarEmpresa (data) {
-      this.empresas = []
-      this.params.pageNumber = 1
-      this.params.searchParam = data
-      this.loading = true
-      this.listarEmpresas()
-    },
-    onScroll ({ to, ref, ...all }) {
-      if (this.loading !== true && this.params.hasMore === true && to === this.pagination.lastIndex) {
-        this.params.pageNumber++
-        this.listarEmpresas()
-      }
-    },
-    usuarioCriado (usuario) {
-      const obj = [...this.usuarios]
-      obj.push(usuario)
-      this.usuarios = [...obj]
+    onScroll () {
+      console.log('onScroll')
     },
     editarUsuario (usuario) {
       this.usuarioSelecionado = usuario
       this.modalUsuario = true
+    },
+    usuarioCriado (usuario) {
+      this.empresas.push(usuario)
+    },
+    UPDATE_EMPRESA (empresa) {
+      const index = this.empresas.findIndex(item => item.id === empresa.id)
+      this.empresas.splice(index, 1, empresa)
+    },
+    filtrarEmpresa () {
+      console.log(this.filter)
     }
   },
-  async mounted () {
-    await this.listarEmpresas()
-  }
+  created () {
+    this.listarEmpresas()
+  } // ,
 }
 </script>
 

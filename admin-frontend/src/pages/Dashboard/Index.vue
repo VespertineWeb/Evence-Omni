@@ -75,8 +75,8 @@
               style="min-width: 200px"
             >
               <q-card-section class="text-center ">
-                <p class="text-h4 text-bold text-center"> {{ ticketsAndTimes.qtd_total_atendimentos }} </p>
-                Total Atendimentos
+                <p class="text-h4 text-bold text-center"> {{ empresas.length }} </p>
+                Empresas Ativas
               </q-card-section>
             </q-card>
           </div>
@@ -243,12 +243,14 @@ import {
 } from 'src/service/estatisticas'
 import { subDays, format, formatDuration, differenceInDays } from 'date-fns'
 import ApexChart from 'vue-apexcharts'
+import { AdminListarEmpresas } from '../../service/empresas'
 
 export default {
   name: 'IndexDashboard',
   components: { ApexChart },
   data () {
     return {
+      empresas: [],
       confiWidth: {
         horizontal: false,
         width: this.$q.screen.width
@@ -678,6 +680,13 @@ export default {
     async listarFilas () {
       const { data } = await ListarFilas()
       this.filas = data
+    },
+    async listarEmpresas () {
+      this.loading = true
+      const { data } = await AdminListarEmpresas()
+      this.empresas = data
+      this.loading = false
+      console.log(data)
     },
     setConfigWidth () {
       const diffDays = differenceInDays(new Date(this.params.endDate), new Date(this.params.startDate))

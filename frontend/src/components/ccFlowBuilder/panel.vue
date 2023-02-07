@@ -16,17 +16,17 @@
       <q-separator inset
         spaced
         vertical />
-       <q-btn
+      <!-- <q-btn
         round
         flat
         icon="mdi-download"
         @click="downloadData"
-      ></q-btn>
+      ></q-btn> -->
       <q-btn round
         flat
         :icon="isFullScreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'"
         @click="isFullScreen = !isFullScreen" />
-      <div class="q-gutter-md q-mx-md">
+      <!-- <div class="q-gutter-md q-mx-md">
         <q-btn
           type="info"
           @click="dataInfo"
@@ -38,17 +38,17 @@
           size="mini"
           icon="mdi-refresh"
         >Processo A</q-btn>
-      </div>
+      </div> -->
     </q-toolbar>
     <q-separator color="text-grey-3" />
     <div class="q-mt-sm"
       style="display: flex; height: calc(100% - 60px);">
-      <div style="width: 230px;border-right: 1px solid #dce3e8;">
+      <!-- <div style="width: 230px;border-right: 1px solid #dce3e8;">
         <node-menu
           @addNode="addNode"
           ref="nodeMenu"
         ></node-menu>
-      </div>
+      </div> -->
       <div id="efContainer"
         ref="efContainer"
         class="container"

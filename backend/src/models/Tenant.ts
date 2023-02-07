@@ -25,6 +25,9 @@ class Tenant extends Model<Tenant> {
   @Column
   name: string;
 
+  @Column
+  cnpj: string;
+
   @ForeignKey(() => User)
   @Column
   ownerId: number;

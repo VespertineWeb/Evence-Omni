@@ -6,3 +6,10 @@ export function AdminListarEmpresas () {
     method: 'get'
   })
 }
+export function CriarTenant (data) {
+  return request({
+    url: '/admin/tenants/',
+    method: 'post',
+    data
+  })
+}

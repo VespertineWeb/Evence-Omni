@@ -252,12 +252,14 @@ const VerifyStepsChatFlowTicket = async (
       const flowConfig = chatFlow.flow.nodeList.find(
         (node: any) => node.type === "configurations"
       );
-
+      console.log('aqui3', step.conditions)
       // verificar condição com a ação do step
       const stepCondition = step.conditions.find((conditions: any) => {
-        const newConditions = conditions.condition.map((c: any) =>
-          String(c).toLowerCase().trim()
-        );
+        if (conditions.type == 'US') return true;
+        const newConditions = conditions.condition.map((c: any) => {
+         return String(c).toLowerCase().trim()
+        });
+        console.log('aqui2', newConditions)
         const message = String(msg.body).toLowerCase().trim();
         return newConditions.includes(message);
       });
@@ -267,7 +269,7 @@ const VerifyStepsChatFlowTicket = async (
         (await isAnswerCloseTicket(flowConfig, ticket, msg.body))
       )
         return;
-
+          console.log('aqui', stepCondition)
       if (stepCondition && !ticket.isCreated) {
         // await CreateAutoReplyLogsService(stepAutoReplyAtual, ticket, msg.body);
         // Verificar se rotina em teste

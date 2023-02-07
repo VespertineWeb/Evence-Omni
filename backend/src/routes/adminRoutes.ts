@@ -12,6 +12,8 @@ adminRoutes.put(
 );
 
 adminRoutes.get("/admin/tenants", isAuthAdmin, AdminController.indexTenants);
+adminRoutes.post("/admin/tenants", isAuthAdmin, AdminController.store);
+
 adminRoutes.get(
   "/admin/chatflow/:tenantId",
   isAuthAdmin,

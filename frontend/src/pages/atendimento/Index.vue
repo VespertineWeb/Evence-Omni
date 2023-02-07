@@ -310,9 +310,13 @@
                 </div>
                 <div class="text-caption q-mt-sm"
                   style="font-size: 14px">
-                  {{ ticketFocado.contact.number || '' }}
+                  <a :href="'tel:'+ ticketFocado.contact.number ">{{ ticketFocado.contact.number || '' }}</a>
+                    <q-icon name="mdi-whatsapp"
+                    size="1.5em"
+                    color="green-5"
+                    />
                 </div>
-                <q-btn color="primary"
+                  <q-btn color="primary"
                   class="q-mt-sm bg-padrao btn-rounded"
                   flat
                   icon="edit"
