@@ -16,7 +16,6 @@ Como escolha para o banco de dados, optamos pelo [PostgresSql 14](https://www.po
 
 No front, todas as funcionalidades são baseadas no [vue](https://vuejs.org/) e [quasar](https://quasar.dev/), com integração via REST API e Websockets.
 
-Esse projeto tem inspiração e também é baseado no projeto fantástico [whaticket](https://github.com/canove/whaticket-community).
 
 **IMPORTANTE**: não garantimos que a utilização desta ferramenta não irá gerar bloqueio nas contas utilizadas. São bots que em sua maioria utilizam APIs secundarias para comunicação com os fornecedores dos serviços. Use com responsabilidade!
 
