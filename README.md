@@ -20,15 +20,6 @@ Esse projeto tem inspiração e também é baseado no projeto fantástico [whati
 
 **IMPORTANTE**: não garantimos que a utilização desta ferramenta não irá gerar bloqueio nas contas utilizadas. São bots que em sua maioria utilizam APIs secundarias para comunicação com os fornecedores dos serviços. Use com responsabilidade!
 
-## Screenshots
-
->![Doação](screenshots/Bot.gif)
-___  
->![Doação](screenshots/dashboard.gif)
-___
->![Doação](screenshots/envence.gif)
-___
-
 ## Principais funcionalidades
 
 - Multíplos canais de atendimento ✅
