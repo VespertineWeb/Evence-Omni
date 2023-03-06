@@ -8,7 +8,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ["api-izing"],
+  app_name: ["api-envence"],
   /**
    * Your New Relic license key.
    */

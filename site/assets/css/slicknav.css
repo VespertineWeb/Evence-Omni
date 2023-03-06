@@ -71,11 +71,11 @@
 
 .slicknav_menu {
   font-size: 16px;
-  box-sizing: border-box;
+  box-senvence: border-box;
   background: #4c4c4c;
   padding: 5px; }
   .slicknav_menu * {
-    box-sizing: border-box; }
+    box-senvence: border-box; }
   .slicknav_menu .slicknav_menutxt {
     color: #fff;
     font-weight: bold; }

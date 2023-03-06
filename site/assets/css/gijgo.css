@@ -269,7 +269,7 @@ ul.gj-list-md li {
     list-style-type: none;
     padding: 0px;
     min-height: unset;
-    box-sizing: border-box;
+    box-senvence: border-box;
     align-items: center;
     cursor: default;
     overflow: hidden;
@@ -303,7 +303,7 @@ ul.gj-list-md li [data-role="display"] {
     order: 0;
     flex-grow: 2;
     text-decoration: none;
-    box-sizing: border-box;
+    box-senvence: border-box;
     align-items: center;
     text-align: left;
     color: rgba(0,0,0,.87);
@@ -683,7 +683,7 @@ ul.gj-list-md li.disabled>[data-role="wrapper"]>[data-role="display"] {
     overflow: hidden;
     border: none;
     box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
-    box-sizing: border-box;
+    box-senvence: border-box;
     position: relative;
     display: -webkit-box;
     display: -webkit-flex;
@@ -745,7 +745,7 @@ ul.gj-list-md li.disabled>[data-role="wrapper"]>[data-role="display"] {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 
-    box-sizing: border-box;
+    box-senvence: border-box;
 }
 
 .gj-dialog-md-footer>*:first-child {
@@ -900,7 +900,7 @@ table.gj-grid-bootstrap tbody tr td div[data-role="display"] {
     font-size: 12px;
     color: rgba(0,0,0,.54);
     padding-bottom: 8px;
-    box-sizing: border-box;
+    box-senvence: border-box;
     padding: 12px 18px;
     text-align: right;
 }
@@ -911,7 +911,7 @@ table.gj-grid-bootstrap tbody tr td div[data-role="display"] {
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
     padding: 12px 18px;
-    box-sizing: border-box;
+    box-senvence: border-box;
     text-align: left;
     color: rgba(0,0,0,.87);
 }
@@ -1632,7 +1632,7 @@ ul.gj-list-md li.disabled > [data-role="wrapper"] > [data-role="expander"] {
 
 .gj-checkbox-md span {
     display: inline-block;
-    box-sizing: border-box;
+    box-senvence: border-box;
     width: 16px;
     height: 16px;
     margin: 0;
@@ -1725,7 +1725,7 @@ ul.gj-list-md li.disabled > [data-role="wrapper"] > [data-role="expander"] {
 .gj-editor [role="body"] {
     overflow: auto;
     outline: 0px solid transparent;
-    box-sizing: border-box;
+    box-senvence: border-box;
 }
 
 /* Material Design */
@@ -2348,7 +2348,7 @@ ul.gj-list-md li.disabled > [data-role="wrapper"] > [data-role="expander"] {
     width: 0;
     height: 0;
     position: absolute;
-    box-sizing: content-box;
+    box-senvence: content-box;
     border-width: 16px;
     border-radius: 50%;
 }

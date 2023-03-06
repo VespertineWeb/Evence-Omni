@@ -20,14 +20,14 @@
           dense
           class="q-ml-sm"
           v-if="$q.screen.gt.xs">
-          <q-img src="/izing-logo_5_transparent.png"
+          <q-img src="/Evence-logo_5_transparent.png"
             spinner-color="primary"
             style="height: 50px; width: 120px" />
           <!-- <q-toolbar-title
             shrink
             class="text-bold text-grey-7"
           >
-            IZING
+            Evence
           </q-toolbar-title> -->
         </q-btn>
 
@@ -298,7 +298,7 @@ export default {
   data () {
     return {
       username,
-      domainExperimentalsMenus: ['@izing.io'],
+      domainExperimentalsMenus: ['@https://www.evence.com'],
       miniState: true,
       userProfile: 'user',
       modalUsuario: false,

@@ -26,7 +26,7 @@ Esse projeto tem inspiração e também é baseado no projeto fantástico [whati
 ___  
 >![Doação](screenshots/dashboard.gif)
 ___
->![Doação](screenshots/izing.gif)
+>![Doação](screenshots/envence.gif)
 ___
 
 ## Principais funcionalidades
@@ -78,7 +78,7 @@ sudo apt-get install -y libgbm-dev wget unzip fontconfig locales gconf-service l
 Clone este repositório
 
 ```bash
-git clone git@github.com:ldurans/izing.io.git
+git clone git@github.com:ldurans/envence.io.git
 ```
 
 Navegue até a pasta backend e crie o arquivo .env:
@@ -115,7 +115,7 @@ RABBITMQ_DEFAULT_USER=
 RABBITMQ_DEFAULT_PASS=
 AMQP_URL='amqp://USER:SENHAS@HOST:PORTA?connection_attempts=5&retry_delay=5'
 API_URL_360=https://waba-sandbox.360dialog.io
-ADMIN_DOMAIN=izing.io
+ADMIN_DOMAIN=envence.io
 FACEBOOK_APP_ID=
 FACEBOOK_APP_SECRET_KEY=
 
@@ -209,14 +209,14 @@ Clone o repositório:
 
 ```bash
 cd  ~
-git clone git@github.com:ldurans/izing.io.git
+git clone git@github.com:ldurans/envence.io.git
 ```
 
 Na pasta backend, crie o arquivo .env:
 
 ```bash
-cp izing/backend/.env.example izing/backend/.env
-nano izing/backend/.env
+cp envence/backend/.env.example envence/backend/.env
+nano envence/backend/.env
 ```
 
 ```bash
@@ -231,7 +231,7 @@ DB_PORT=5432
 POSTGRES_HOST=
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=
-POSTGRES_DB=izing
+POSTGRES_DB=envence
 IO_REDIS_SERVER=localhost
 IO_REDIS_PORT='6379'
 IO_REDIS_DB_SESSION='2'
@@ -261,7 +261,7 @@ sudo apt-get install -y libgbm-dev wget unzip fontconfig locales gconf-service l
 Instale as dependências do backend e execute as migrações e carga de dados iniciais:
 
 ```bash
-cd izing/backend
+cd envence/backend
 npm install
 npm run build
 npx sequelize db:migrate
@@ -272,7 +272,7 @@ Instale o pm2 **com sudo**, e inicie o backend com ele:
 
 ```bash
 sudo npm install -g pm2
-pm2 start dist/server.js --name izing-backend
+pm2 start dist/server.js --name envence-backend
 ```
 
 Após isso, faça o pm2 auto iniciar:
@@ -330,7 +330,7 @@ sudo rm /etc/nginx/sites-enabled/default
 Crie o site para o Backend
 
 ```bash
-sudo nano /etc/nginx/sites-available/izing-backend
+sudo nano /etc/nginx/sites-available/envence-backend
 ```
 
 ```bash
@@ -347,14 +347,14 @@ server {
 Crie o site para o Front
 
 ```bash
-sudo nano /etc/nginx/sites-available/izing-frontend
+sudo nano /etc/nginx/sites-available/envence-frontend
 ```
 
 ```bash
 server {
   server_name myapp.mydomain.com;
   
-  root /home/user/izing/frontend/dist/pwa; # caminho da pasta dist/pwa
+  root /home/user/envence/frontend/dist/pwa; # caminho da pasta dist/pwa
   
   add_header X-Frame-Options "SAMEORIGIN";
   add_header X-XSS-Protection "1; mode=block";
@@ -374,8 +374,8 @@ server {
 Crie os links simbólicos para habilitar os sites:
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/izing-backend /etc/nginx/sites-enabled
-sudo ln -s /etc/nginx/sites-available/izing-frontend /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/envence-backend /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/envence-frontend /etc/nginx/sites-enabled
 ```
 
 Vamos alterar a configuração do nginx para aceitar 20MB de corpo nas requisições:
@@ -419,14 +419,14 @@ Leadpy é um trabalho em progresso e estamos frequentemente adicionando novas fu
 **IMPORTANTE**: verifique sempre o .env.example e ajuste o seu .env antes de atualizar, uma vez que algumas novas variáveis podem ser adicionadas.
 
 ```bash
-nano updateIzing
+nano updateenvence
 ```
 
 ```bash
 #!/bin/bash
-echo  "Atualizando izing, aguarde..."
+echo  "Atualizando envence, aguarde..."
 cd  ~
-cd izing
+cd envence
 git pull
 cd backend
 npm install
@@ -445,8 +445,8 @@ echo  "Atualização finalizada!"
 Marque o arquivo como executável:
 
 ```bash
-chmod +x updateIzing
-./updateIzing
+chmod +x updateenvence
+./updateenvence
 ```
 
 ## FIQUE ATENTO

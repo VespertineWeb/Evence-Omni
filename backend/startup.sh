@@ -9,11 +9,11 @@ docker run -d --name rabbitmq \
  rabbitmq:3-management-alpine
 
 
-docker run -d --name redis-izing \
+docker run -d --name redis-envence \
  -p 6378:6379 \
  --restart=always \
- --hostname redis-izing \
- -v /home/durans/database/redis-izing/data:/var/lib/rabbitmq \
+ --hostname redis-envence \
+ -v /home/durans/database/redis-envence/data:/var/lib/rabbitmq \
  redis:latest
 
 

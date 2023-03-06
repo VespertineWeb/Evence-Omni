@@ -13671,7 +13671,7 @@ copyright 2016 jsPlumb
         // a loopback connector.  draw an arc from one anchor to the other.
         var x1 = p.sourcePos[0], y1 = p.sourcePos[1] - margin,
           cx = x1, cy = y1 - loopbackRadius,
-          // canvas sizing stuff, to ensure the whole painted area is visible.
+          // canvas senvence stuff, to ensure the whole painted area is visible.
           _x = cx - loopbackRadius,
           _y = cy - loopbackRadius;
 

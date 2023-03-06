@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  izing-backend:
+  envence-backend:
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -13,17 +13,17 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - ".:/usr/src/app"
-      # - "/var/izing-media:/usr/src/app/public/"
+      # - "/var/envence-media:/usr/src/app/public/"
     networks:
-      - izing_network
-      - izing_db_network
+      - envence_network
+      - envence_db_network
     depends_on:
-      - izing-redis
-      - izing-db
-      - izing-rabbitmq
+      - envence-redis
+      - envence-db
+      - envence-rabbitmq
 
-  izing-redis:
-    container_name: "izing-redis"
+  envence-redis:
+    container_name: "envence-redis"
     image: 'redis:latest'
     restart: always
     extra_hosts:
@@ -33,38 +33,38 @@ services:
     env_file:
       - ./.env
     volumes:
-      - '/var/izing/redis:/data'
+      - '/var/envence/redis:/data'
     networks:
-      - izing_db_network
+      - envence_db_network
 
   # database containers, one for each db
-  izing-fixPermissionsPostregres:
+  envence-fixPermissionsPostregres:
     image: 'bitnami/postgresql:14'
     user: root
     command: chown -R 1001:1001 /bitnami/postgresql
     volumes:
-      - "/var/izing/pg:/bitnami/postgresql/data"
+      - "/var/envence/pg:/bitnami/postgresql/data"
 
-  izing-db:
+  envence-db:
     image: 'bitnami/postgresql:14'
     restart: always
-    container_name: "izing-db"
+    container_name: "envence-db"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     env_file:
       - ./.env
     volumes:
-      - "/var/izing/pg:/bitnami/postgresql/data"
+      - "/var/envence/pg:/bitnami/postgresql/data"
     ports:
       - "5432:5432"
     depends_on:
-      - izing-fixPermissionsPostregres
+      - envence-fixPermissionsPostregres
     networks:
-      - izing_db_network
+      - envence_db_network
 
-  izing-rabbitmq:
+  envence-rabbitmq:
     image: rabbitmq:3-management
-    hostname: izing-rabbit
+    hostname: envence-rabbit
     restart: always
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -79,16 +79,16 @@ services:
       # - ./rabbitmq/etc/definitions.json:/etc/rabbitmq/definitions.json
       # - ./rabbitmq/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
       # - ./rabbitmq/data:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit
-      - /var/izing/rabbitmq/data/:/var/lib/rabbitmq/
-      - /var/izing/rabbitmq/logs/:/var/log/rabbitmq/log
+      - /var/envence/rabbitmq/data/:/var/lib/rabbitmq/
+      - /var/envence/rabbitmq/logs/:/var/log/rabbitmq/log
     ports:
       - 5672:5672
       - 15672:15672
     networks:
-      - izing_db_network
+      - envence_db_network
 
 networks:
-  izing_network:
+  envence_network:
     driver: bridge
-  izing_db_network:
+  envence_db_network:
     driver: bridge
